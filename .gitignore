@@ -1,0 +1,12 @@
+@'
+node_modules/
+.env
+.env.*
+public/temp/
+uploads/
+dist/
+build/
+*.log
+.DS_Store
+.vscode/
+'@ > .gitignore
