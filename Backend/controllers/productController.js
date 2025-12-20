@@ -1,11 +1,11 @@
 import productModel from "../models/productModel.js";
 import {v2 as cloudinary} from "cloudinary";
-import produtModel from "../models/productModel.js"
+
 
 //add product
 const addProduct = async (req,res)=>{
     try{
-        const {name, description,price,category,subCategory,sizes,bestseller} = req.body
+        const {name, description,price,category,subCategory,sizes,bestSeller} = req.body
 
         if (!name || !description || !price || !category) {
             console.log("missing fields");
@@ -30,7 +30,7 @@ const addProduct = async (req,res)=>{
             category,
             price:Number(price),
             subCategory,
-            bestseller:bestseller==='true' ? true : false,
+            bestSeller:bestSeller==='true' ? true : false,
             sizes:JSON.parse(sizes),
             image:imagesUrl,
             date:Date.now()
@@ -42,7 +42,7 @@ const addProduct = async (req,res)=>{
 
         
 
-        console.log(name, description,price,category,subCategory,sizes,bestseller);
+        console.log(name, description,price,category,subCategory,sizes,bestSeller);
         console.log(images)
         console.log(imagesUrl)
         console.log(productData);

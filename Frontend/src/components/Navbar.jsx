@@ -3,10 +3,19 @@ import {assets} from '../assets/frontend_assets/assets'
 import { NavLink,Link } from 'react-router-dom';
 import { Search, User, ShoppingBag, Menu, ChevronDown} from 'lucide-react';
 import { ShopContext } from '../context/ShopContext';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
     const[visible,setVisible]=useState(false);
-    const {setShowSearch,getCartCount}=useContext(ShopContext);
+    const {setShowSearch,getCartCount,navigate,token,setToken,setCartItems}=useContext(ShopContext);
+    const logout=()=>{
+        navigate('/login')
+        toast.success('Logged out')
+        localStorage.removeItem('token');
+        setToken('');
+        setCartItems({});
+        
+    }
   return (
     <div className='flex items-center justify-between py-6 font-medium border-b border-zinc-800 bg-black px-4'>
         <Link to='/'><img src={assets.logo} className='w-36 brightness-400  invert' alt="Logo" /></Link>
@@ -37,14 +46,18 @@ const Navbar = () => {
            <Search onClick={()=>setShowSearch(true)} className="w-5 h-5 text-gray-400 hover:text-emerald-400 cursor-pointer transition-colors" />
 
             <div className="group relative">
-                <Link to='/login'><User className="w-5 h-5 text-gray-400 group-hover:text-emerald-400 cursor-pointer transition-colors" /></Link>
-                <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4 z-10'>
+                <Link onClick={()=> token ? null : navigate('/login') } to='/login'><User className="w-5 h-5 text-gray-400 group-hover:text-emerald-400 cursor-pointer transition-colors" /></Link>
+                { /* drop down menue */}
+                {token &&
+                   <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4 z-10'>
                     <div className='flex flex-col gap-2 w-40 py-4 px-6 bg-zinc-900 text-gray-300 rounded-lg border border-zinc-800 shadow-xl'>
                         <p className='cursor-pointer hover:text-emerald-400 transition-colors'>My Profile</p>
-                        <p className='cursor-pointer hover:text-emerald-400 transition-colors'>Orders</p>
-                        <p className='cursor-pointer hover:text-red-400 transition-colors'>Logout</p>
+                        <p onClick={()=> navigate('/orders')} className='cursor-pointer hover:text-emerald-400 transition-colors'>Orders</p>
+                        <p onClick={logout} className='cursor-pointer hover:text-red-400 transition-colors'>Logout</p>
                    </div>
                 </div>
+                }
+                
             </div>
             <Link to='/cart' className='relative'>
                 <ShoppingBag className='w-5 min-w-5 text-gray-400 hover:text-emerald-400 transition-colors'/>

@@ -10,7 +10,9 @@ const Cart = () => {
 
   const[cartData,setCartData]=useState([]);
   useEffect(()=>{
-    const tempData=[];
+
+    if(products.length>0){
+      const tempData=[];
     for(const items in cartItems){
       for(const item in cartItems[items]){
         if(cartItems[items][item]>0){
@@ -23,7 +25,8 @@ const Cart = () => {
       }
     }
     setCartData(tempData);
-  },[cartItems])
+    }
+  },[cartItems,products])
   return (
     <div className='border-t border-zinc-800 p-4 sm:p-14'>
       <div className='text-2xl mb-3'>
@@ -33,6 +36,7 @@ const Cart = () => {
         {
           cartData.map((item,index)=>{
             const productData=products.find((product)=>product._id===item._id);
+            if (!productData) return null;
             return (
               <div key={index} className='py-6 border-t border-b border-zinc-800 text-gray-300 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4 bg-zinc-900 rounded-xl px-4 sm:px-6 my-3 hover:border-emerald-400 transition-colors'>
                 <div className='flex items-start gap-6'>
