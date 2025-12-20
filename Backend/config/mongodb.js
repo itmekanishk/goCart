@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 let cachedConnection = null;
 
 const connectDB = async () => {
-    // ADD THESE 3 LINES
+    
     if (cachedConnection && mongoose.connection.readyState === 1) {
         return cachedConnection;
     }
