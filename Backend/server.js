@@ -13,9 +13,11 @@ const app=express()
 const port=process.env.PORT;
 connectDB()
 .then(() => {
-    app.listen(process.env.PORT || 4000, () => {
-        console.log(` Server is running at port : ${port}`);
-    })
+    if (process.env.NODE_ENV !== "production") {
+       app.listen(process.env.PORT || 4000, () => {
+       console.log(`Server is running on port ${process.env.PORT || 4000}`);
+    });
+}
 })
 .catch((err) => {
     console.log("MONGO db connection failed !!! ", err);
@@ -36,4 +38,6 @@ app.use('/api/order',orderRoter)
 app.get('/',(req,res)=>{
     res.send("API Working")
 })
+
+export default app;
 
