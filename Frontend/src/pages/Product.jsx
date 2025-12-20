@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/frontend_assets/assets';
 import RelatedProduct from '../components/RelatedProduct';
+import { toast } from 'react-toastify';
 
 const Product = () => {
   const{productId}=useParams();
@@ -82,7 +83,8 @@ const Product = () => {
             </div>
           </div>
 
-          <button onClick={()=>addToCart(productData._id,size)} className='bg-emerald-500 hover:bg-emerald-600 text-black font-medium px-10 py-3 text-sm rounded-lg transition-colors active:scale-95'>
+          <button onClick={()=>addToCart(productData._id,size)} className="bg-emerald-500 hover:bg-emerald-600 text-black font-medium px-10 py-3 text-sm rounded-lg transition-colors active:scale-95 border border-white hover:border-emerald-600"
+>
             Add to Cart
           </button>
 
