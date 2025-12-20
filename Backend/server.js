@@ -23,12 +23,19 @@ connectDB()
     console.log("MONGO db connection failed !!! ", err);
 })
 
-uploadOnCloudinary();
+if (process.env.CLOUDINARY_URL) {
+  uploadOnCloudinary();
+}
+
 
 //middleware
 
 app.use(express.json());
+// middleware
+app.use(express.json());
+
 app.use(cors())
+
 
 app.use('/api/user',userRouter);
 app.use('/api/product',productRouter)
